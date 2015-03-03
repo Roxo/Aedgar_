@@ -18,6 +18,8 @@ public class Parametros {
 
 	private boolean fuzzy = false;//Comportamiento de las Etiquetas, poner en un parametro externo para el estudio.
 
+	private int cobertura = 0;
+	
 	
 	//Niveles de depuración 1 -> Solo resultados  2-> solucion actual y evolucion 3 ->bajo nivel 4 -> verbose
 	 private int nivelDepuracion=1;
@@ -25,7 +27,7 @@ public class Parametros {
 	 private int NodosActivos=0;
 	 private long Semilla=1232457;
  
-	 private boolean optimizaParticiones = true;
+	 private boolean optimizaParticiones = false;
 	 
 	 private double coberturaFuzzy = 0.3;
 	 
@@ -37,7 +39,7 @@ public class Parametros {
 	 private double g=0.9;
 	 private int poblacion=500;  //poblacion de cada nodo
 	 private int numNodos=10;
-	 	 private double Pcruce=0.6;
+	 private double Pcruce=0.6;
 	 private double Pmutacion=0.001; //v2 antes mutación era 0.0001
 	 private int numCruces=4;
 	 private boolean clasificador = false;// utiliza un nodo final con todo entrenamiento para depurar la solucion final con cruce 2p y mutacion generalización
@@ -53,12 +55,9 @@ public class Parametros {
 	 private String  subdirectorio = "";
 	 private boolean formatoDatosTra = true; //Depende de si los ficheros de entrada vieen con terminación .tst y tra (false)  o tra.dat y tst.dat (true)
 	 // Parámetros utilizados para el modelo distribuido
-	 
 	 private double ratio_migracion_nu=0.1;
 	 private double ratio_adaptacion_foraneo_P=0.1; 
 	 //inicialmente 0.1, indica los elementos de la red forzados a participar en la seleccion y cruce. 
-	 
-		 
 	 private int Numero_Maximo_Epocas_Sin_Mejora=5;
 	 
 	 // Parámetros supervisor 
@@ -466,7 +465,27 @@ public class Parametros {
 	{
 		return tipo_de_discretizador;
 	}
- 
+	
+	/**
+	 * @return
+			//0 -> Intervalar
+			//1 -> Trapezoidal
+	 		//2 -> Triangular
+
+	 */
+	public int getCobertura() {
+		return cobertura;
+	}	
+	/**
+	 * @string
+			//0 -> Intervalar
+			//1 -> Trapezoidal
+	 		//2 -> Triangular
+
+	 */
+	public void set_cobertura(String string) {
+		this.cobertura = Integer.parseInt(string);
+	}
 	
 	
 

@@ -174,14 +174,18 @@ public class EntradaSalidaFuzzy {
 					{
 						
 						int num = dis.getNumIntervals(i);
-						
+// --> ISSUE Puntos Discretizador <-> Daniel Albendín
+						/*
 						_plantillaAtributos[i][0] = num+1;
 						
 						_plantillaAtributos[i][1] =indiceAtributo;
 						indiceAtributo=indiceAtributo+num+1;
 						
 						
-						
+						*/
+						_plantillaAtributos[i][0] = num;
+						_plantillaAtributos[i][1] = indiceAtributo;
+						indiceAtributo = indiceAtributo+num;
 						num--; // Hay un punto de corte menos que el número de intervalos
 						
 					
@@ -190,22 +194,23 @@ public class EntradaSalidaFuzzy {
 						
 						_ValoresAtributos[i] = new ArrayList();
 						
-						_ValoresAtributos[i].add(valInicial);
+		//				_ValoresAtributos[i].add(valInicial);
 						for(int j=0;j<num;j++)
 						{
-							double val1 = (Double) _ValoresAtributos[i].get(j);
+				// Se ha cambiado para usar directamente los puntos del discretizador
+				// en lugar de los puntos altos del triángulo
+				//			double val1 = (Double) _ValoresAtributos[i].get(j);
+
 							double val2 = dis.getCutPoint(i, j);
-							
-							double media = (val1 + val2) / 2;
-							
-							_ValoresAtributos[i].add(media);
+							//double media = (val1 + val2) / 2;
+							_ValoresAtributos[i].add(val2);
 							
 						}
 						_ValoresAtributos[i].add(valFinal);
 					}
 				}				
 			}
-
+// <-- ISSUE
 			for (int x = 0; x < numInstancias; x++) 
 			{	
 				double[] AtributosEntradaReales = Instancias[x].getInputRealValues();
@@ -236,7 +241,11 @@ public class EntradaSalidaFuzzy {
 			}
 
 			plantilla.setContadorClases(porcentajeClases);
-			
+//<-- CREADO: Coberturas <-> Albendín 
+			// Una cobertura cada vez que se cree una plantilla
+			plantilla.CrearCobertura();
+//-->
+		
 			
 			return Nuevos_Datos_Entrenamiento;
 

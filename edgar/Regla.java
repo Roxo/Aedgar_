@@ -261,49 +261,24 @@ public class Regla extends Cromosoma {
 							encontrados++;
 					}
 				}
+//--> CREADO: Coberturas <-> Albendín
 				
-				Double valor = (Double)(ej.getValores().get(indAtr));
-				
-				ArrayList[] valores = ej.plantilla.get_ValoresAtributos();
-				
-				Double min;
-				
-				if(posicion_regla==0)
-					min = (Double)valores[indAtr].get(posicion_regla);
-				else
-					min = (Double)valores[indAtr].get(posicion_regla-1);
-				
-				Double centro = (Double)valores[indAtr].get(posicion_regla);
-				
-				Double max;
-				
-				if(posicion_regla == ej.plantilla.numValoresAtributo(indAtr)-1)
-					max = (Double)valores[indAtr].get(posicion_regla);
-				else
-					max = (Double)valores[indAtr].get(posicion_regla+1);
-				
-				if(valor.doubleValue() >= min.doubleValue() && valor.doubleValue() <= max.doubleValue())
-				{
-					double altura = 0;
-					if(valor.doubleValue() < centro.doubleValue())
-						altura = (valor - min.doubleValue()) / (centro.doubleValue() - min.doubleValue());
-					
-					else if(valor.doubleValue() == centro.doubleValue())
-						altura = 1;
-					
-					else
-						altura = (max.doubleValue() - valor) / (max.doubleValue() - centro.doubleValue());
-					
-					
-					if(altura>mayorH0)
-						mayorH0 = altura;
-				}
-			}
-			
-			return mayorH0;
-		}
+	            Double valor = (Double)(ej.getValores().get(indAtr));
+
+	            ArrayList[] valores = ej.plantilla.get_ValoresAtributos();
+
+	            
+	            Double altura = 0.0;
+	            altura = plantilla.getCobertura(posicion_regla,valor,indAtr,valores[indAtr].size());
+                if(altura>mayorH0)
+                    mayorH0 = altura;
+	        }
+
+	        return mayorH0;
+//<-- 
+	    }
 	}
-	
+
 	
 	public Double cumple_Atributo(int indAtr, EjemploFuzzy ej, Plantilla plan)
 	{

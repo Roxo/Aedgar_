@@ -34,7 +34,9 @@ public class Plantilla
 	 private ArrayList valoresClase;
 	 private int numeroClases;
 	 private int contadorClases[];
-	 
+//--> CREADO: Coberturas  <-> Daniel Albendín
+	 private i_Cobertura cob;
+//<--
 	 public Plantilla(Plantilla plantilla, ArrayList[] particiones) {
 		// TODO Auto-generated constructor stub
 		 this.numeroClases = plantilla.numeroClases;
@@ -224,6 +226,38 @@ public class Plantilla
 		tiposAtributos = _tiposAtributos;
 		
 	}
-	
+
+/**
+ *  Crea un objeto que implementa la interfaz i_Cobertura dependiendo del valor que indiquemos en los parametros globales 
+ */
+//<-- CREADO: Coberturas <-> Albendín 
+	public void CrearCobertura() {
+			 int cobertura = Parametros.getInstancia_Parametros().getCobertura();
+			 switch(cobertura){
+			 	case	0:
+			 		cob = new C_Intervalar(this.valoresAtributos);
+				 break;
+/*			 	case 1:
+		            cob = new C_Trapezoidal(this.valoresAtributos);
+		            break;
+			 	case 2:
+		            cob = new C_Triangular(this.valoresAtributos);
+		            break;*/
+		        default:
+		        	break;
+			 }
+	}
+//-->
+	/**
+	 * 
+	 * @param posicion_regla	Intervalo del atributo de una regla que está activo.
+	 * @param valor				Valor del ejemplo el cual hay que ver si la regla lo cubre
+	 * @param indAtr			Indice del atributo de la regla que estamos analizando
+	 * @param sizeAtr			Tamaño del atributo[indAtr]
+	 * @return Devuelve la altura [0,1] del cumplimiento de un atributo en una regla (0) si la parte del atributo que estamos analizando no cubre el valor
+	 */
+	public Double getCobertura(int posicion_regla,Double valor, int indAtr, int sizeAtr) {
+		return cob.GetCobertura(posicion_regla,valor,indAtr,sizeAtr);
+    }
 	
 }
